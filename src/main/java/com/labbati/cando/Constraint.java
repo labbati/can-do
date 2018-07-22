@@ -1,4 +1,4 @@
-package com.labbati.cando.model;
+package com.labbati.cando;
 
 public class Constraint {
 
