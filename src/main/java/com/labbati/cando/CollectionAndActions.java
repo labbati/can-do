@@ -13,10 +13,6 @@ public class CollectionAndActions<T> {
         this.actions = actions;
     }
 
-    public Class<T> getType() {
-        return type;
-    }
-
     public List<EntityAndActions<T>> getEntitiesAndActions() {
         return entitiesAndActions;
     }

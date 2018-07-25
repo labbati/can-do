@@ -5,7 +5,7 @@ import java.util.Set;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
-public class Action {
+public final class Action {
 
     private String name;
 
@@ -35,7 +35,7 @@ public class Action {
         return new Action(name, activator.test(instance));
     }
 
-    public static Action forbid(String name) {
+    public static Action deny(String name) {
         return new Action(name, false);
     }
 
