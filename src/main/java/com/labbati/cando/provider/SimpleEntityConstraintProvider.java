@@ -1,6 +1,6 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Constraint;
+import com.labbati.cando.model.Constraint;
 
 import java.util.function.Function;
 
@@ -12,14 +12,18 @@ public final class SimpleEntityConstraintProvider<T> implements EntityConstraint
 
     private Function<T, Object> valueProvider;
 
-    public SimpleEntityConstraintProvider(String name, Function<T, Object> valueProvider, Function<T, Boolean> activator) {
+    public SimpleEntityConstraintProvider(
+        String name,
+        Function<T, Object> valueProvider,
+        Function<T, Boolean> activator
+    ) {
         this.name = name;
         this.activator = activator;
         this.valueProvider = valueProvider;
     }
 
     @Override
-    public Constraint apply(T entity) {
+    public Constraint provide(T entity) {
         return new Constraint(name, valueProvider.apply(entity), activator.apply(entity));
     }
 }

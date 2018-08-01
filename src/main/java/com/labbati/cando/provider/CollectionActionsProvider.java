@@ -1,10 +1,11 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Action;
+import com.labbati.cando.model.Action;
 
 import java.util.List;
-import java.util.function.Function;
 
+@FunctionalInterface
+public interface CollectionActionsProvider<T> {
 
-public interface CollectionActionsProvider<T> extends Function<Class<T>, List<Action>> {
+    List<Action> provide(Class<T> t, Boolean includeDeniedActions, Boolean includeInactiveConstraints);
 }

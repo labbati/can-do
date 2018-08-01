@@ -1,6 +1,5 @@
 package com.labbati.cando.builder;
 
-import com.labbati.cando.Constraint;
 import com.labbati.cando.provider.EntityActionProvider;
 import com.labbati.cando.provider.EntityConstraintProvider;
 import com.labbati.cando.provider.SimpleEntityActionProvider;

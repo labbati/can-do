@@ -1,4 +1,4 @@
-package com.labbati.cando;
+package com.labbati.cando.model;
 
 import java.util.List;
 

@@ -1,8 +1,9 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Constraint;
+import com.labbati.cando.model.Constraint;
 
-import java.util.function.Function;
+@FunctionalInterface
+public interface CollectionConstraintProvider<T> {
 
-public interface CollectionConstraintProvider<T> extends Function<Class<T>, Constraint> {
+    Constraint provide(Class<T> type);
 }

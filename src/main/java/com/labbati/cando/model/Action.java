@@ -1,7 +1,6 @@
-package com.labbati.cando;
+package com.labbati.cando.model;
 
-import java.util.HashSet;
-import java.util.Set;
+import java.util.*;
 import java.util.function.BooleanSupplier;
 import java.util.function.Predicate;
 
@@ -11,16 +10,24 @@ public final class Action {
 
     private boolean allowed;
 
-    private Set<Constraint> constraints;
+    private List<Constraint> constraints;
 
-    public Action(String name, boolean allowed, Set<Constraint> constraints) {
+    public Action(String name, boolean allowed, List<Constraint> constraints) {
         this.name = name;
         this.constraints = constraints;
         this.allowed = allowed;
     }
 
+    public Action(String name, BooleanSupplier activator, List<Constraint> constraints) {
+        this(name, activator.getAsBoolean(), constraints);
+    }
+
+    public static Action allow(String name, BooleanSupplier activator, List<Constraint> constraints) {
+        return new Action(name, activator.getAsBoolean());
+    }
+
     public Action(String name, boolean allowed) {
-        this(name, allowed, new HashSet<>());
+        this(name, allowed, new ArrayList<>());
     }
 
     public static Action allow(String name) {
@@ -43,7 +50,7 @@ public final class Action {
         return name;
     }
 
-    public Set<Constraint> getConstraints() {
+    public List<Constraint> getConstraints() {
         return constraints;
     }
 

@@ -1,9 +1,9 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Action;
+import com.labbati.cando.model.Action;
 
-import java.util.function.Function;
+@FunctionalInterface
+public interface EntityActionProvider<T> {
 
-
-public interface EntityActionProvider<T> extends Function<T, Action> {
+    Action provide(T entity, Boolean includeInactiveConstraints);
 }

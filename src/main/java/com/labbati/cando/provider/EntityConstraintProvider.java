@@ -1,8 +1,9 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Constraint;
+import com.labbati.cando.model.Constraint;
 
-import java.util.function.Function;
+@FunctionalInterface
+public interface EntityConstraintProvider<T> {
 
-public interface EntityConstraintProvider<T> extends Function<T, Constraint> {
+    Constraint provide(T entity);
 }

@@ -1,6 +1,6 @@
 package com.labbati.cando.provider;
 
-import com.labbati.cando.Action;
+import com.labbati.cando.model.Action;
 
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,9 +15,10 @@ public class AggregateEntityActionsProvider<T> implements EntityActionsProvider<
     }
 
     @Override
-    public List<Action> apply(T entity) {
+    public List<Action> provide(T entity, Boolean includeDeniedActions, Boolean includeInactiveConstraints) {
         return Stream.of(actionsProviders)
-            .map(ap -> ap.apply(entity))
+            .map(ap -> ap.provide(entity, includeInactiveConstraints))
+            .filter(action -> includeDeniedActions || action.isAllowed())
             .collect(Collectors.toList());
     }
 }
