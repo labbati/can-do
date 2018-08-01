@@ -48,6 +48,6 @@ public class EntityActionProviderBuilder<T> {
     }
 
     public EntityActionProvider<T> build() {
-        return new SimpleEntityActionProvider<>(name, allowEvaluator);
+        return new SimpleEntityActionProvider<>(name, allowEvaluator, constraints);
     }
 }

@@ -48,6 +48,6 @@ public class CollectionActionProviderBuilder<T> {
     }
 
     public CollectionActionProvider<T> build() {
-        return new SimpleCollectionActionProvider<>(name, allowEvaluator);
+        return new SimpleCollectionActionProvider<T>(name, allowEvaluator, constraints);
     }
 }

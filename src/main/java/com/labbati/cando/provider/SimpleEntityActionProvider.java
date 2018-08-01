@@ -24,7 +24,7 @@ public class SimpleEntityActionProvider<T> implements EntityActionProvider<T> {
     @Override
     public Action provide(T entity, Boolean includeInactiveConstraints) {
         List<Constraint> constraints = constraintProviders.stream()
-            .map(cp -> cp.apply(entity))
+            .map(cp -> cp.provide(entity))
             .filter(c -> includeInactiveConstraints || c.isActive())
             .collect(Collectors.toList());
         return new Action(name, allowEvaluator.apply(entity), constraints);

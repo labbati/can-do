@@ -24,7 +24,7 @@ public class SimpleCollectionActionProvider<T> implements CollectionActionProvid
     @Override
     public Action provide(Class<T> type, Boolean includeInactiveConstraints) {
         List<Constraint> constraints = constraintProviders.stream()
-            .map(cp -> cp.apply(type))
+            .map(cp -> cp.provide(type))
             .filter(c -> includeInactiveConstraints || c.isActive())
             .collect(Collectors.toList());
         return new Action(name, allowEvaluator.apply(type), constraints);
