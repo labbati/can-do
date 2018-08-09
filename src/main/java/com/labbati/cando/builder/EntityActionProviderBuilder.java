@@ -1,9 +1,6 @@
 package com.labbati.cando.builder;
 
-import com.labbati.cando.provider.EntityActionProvider;
-import com.labbati.cando.provider.EntityConstraintProvider;
-import com.labbati.cando.provider.SimpleEntityActionProvider;
-import com.labbati.cando.provider.SimpleEntityConstraintProvider;
+import com.labbati.cando.provider.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -17,7 +14,11 @@ public class EntityActionProviderBuilder<T> {
 
     private Function<T, Boolean> allowEvaluator = (type) -> true;
 
+    private final Function<T, Object> alwaysNull = (type) -> null;
+
     private final List<EntityConstraintProvider<T>> constraints = new ArrayList<>();
+
+    private final List<EntityReasonProvider<T>> reasons = new ArrayList<>();
 
     public EntityActionProviderBuilder(Class<T> type, String name) {
         this.name = name;
@@ -47,7 +48,16 @@ public class EntityActionProviderBuilder<T> {
         return this;
     }
 
+    public EntityActionProviderBuilder<T> withReason(String code, Function<T, Boolean> activator, Function<T, Object> valueProvider) {
+        reasons.add(new SimpleEntityReasonProvider<T>(code, activator, valueProvider));
+        return this;
+    }
+
+    public EntityActionProviderBuilder<T> withReason(String name, Function<T, Boolean> activator) {
+        return withReason(name, activator, alwaysNull);
+    }
+
     public EntityActionProvider<T> build() {
-        return new SimpleEntityActionProvider<>(name, allowEvaluator, constraints);
+        return new SimpleEntityActionProvider<>(name, allowEvaluator, constraints, reasons);
     }
 }

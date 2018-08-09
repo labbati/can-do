@@ -12,10 +12,19 @@ public final class Action {
 
     private List<Constraint> constraints;
 
+    private List<Reason> reasons = new ArrayList<>();
+
     public Action(String name, boolean allowed, List<Constraint> constraints) {
         this.name = name;
         this.constraints = constraints;
         this.allowed = allowed;
+    }
+
+    public Action(String name, boolean allowed, List<Constraint> constraints, List<Reason> reasons) {
+        this.name = name;
+        this.constraints = constraints;
+        this.allowed = allowed;
+        this.reasons = reasons;
     }
 
     public Action(String name, BooleanSupplier activator, List<Constraint> constraints) {
@@ -52,6 +61,10 @@ public final class Action {
 
     public List<Constraint> getConstraints() {
         return constraints;
+    }
+
+    public List<Reason> getReasons() {
+        return reasons;
     }
 
     public boolean isAllowed() {

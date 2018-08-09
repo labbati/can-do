@@ -1,9 +1,6 @@
 package com.labbati.cando.builder;
 
-import com.labbati.cando.provider.CollectionActionProvider;
-import com.labbati.cando.provider.CollectionConstraintProvider;
-import com.labbati.cando.provider.SimpleCollectionActionProvider;
-import com.labbati.cando.provider.SimpleCollectionConstraintProvider;
+import com.labbati.cando.provider.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -18,6 +15,10 @@ public class CollectionActionProviderBuilder<T> {
     private Function<Class<T>, Boolean> allowEvaluator = (type) -> true;
 
     private final List<CollectionConstraintProvider<T>> constraints = new ArrayList<>();
+
+    private final List<CollectionReasonProvider<T>> reasons = new ArrayList<>();
+
+    private final Function<Class<T>, Object> alwaysNull = (type) -> null;
 
     public CollectionActionProviderBuilder(Class<T> type, String name) {
         this.name = name;
@@ -47,7 +48,16 @@ public class CollectionActionProviderBuilder<T> {
         return this;
     }
 
+    public CollectionActionProviderBuilder<T> withReason(String code, Function<Class<T>, Boolean> activator, Function<Class<T>, Object> valueProvider) {
+        reasons.add(new SimpleCollectionReasonProvider<>(code, activator, valueProvider));
+        return this;
+    }
+
+    public CollectionActionProviderBuilder<T> withReason(String name, Function<Class<T>, Boolean> activator) {
+        return withReason(name, activator, alwaysNull);
+    }
+
     public CollectionActionProvider<T> build() {
-        return new SimpleCollectionActionProvider<T>(name, allowEvaluator, constraints);
+        return new SimpleCollectionActionProvider<>(name, allowEvaluator, constraints, reasons);
     }
 }
